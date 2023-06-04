@@ -7,7 +7,9 @@
 /* Making text unselectable in elements */
 button,
 .game,
-.score {
+.score,
+.reset,
+.clear {
     -webkit-user-select: none;
     /* Safari */
     -ms-user-select: none;
@@ -15,6 +17,7 @@ button,
     user-select: none;
     /* Standard syntax */
 }
+
 
 /* Styling body */
 body {
@@ -31,6 +34,7 @@ body {
     transform: translate(-1%, -1%);
     transition: all .3s ease;
 }
+
 
 /* Heading for the game */
 body h1 {
@@ -55,6 +59,7 @@ body .game {
     transition: .3s;
 }
 
+
 /* Styling the tic tac toe grid */
 .game .box {
     display: none;
@@ -68,6 +73,7 @@ body .game {
     margin-top: 10px;
 }
 
+
 /* Play button */
 .game .start {
     font-size: 24px;
@@ -75,12 +81,12 @@ body .game {
     font-weight: 600;
     margin: 0 25px;
     transition: .4s;
-    cursor: pointer;
 }
 
 .game .start:hover {
     color: rgba(0, 0, 0, .5);
 }
+
 
 /* Divide Game box into cells using stripes */
 body .game .shell {
@@ -92,6 +98,7 @@ body .game .shell {
     font-size: 64px;
     padding: 20px 35px;
 }
+
 
 /* Score Board */
 .score {
@@ -109,16 +116,19 @@ body .game .shell {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    color: #14BDAC;
+}
+
+.score .p1 {
+    color: rgba(255, 255, 255, .9);
 }
 
 .score .player {
     font-size: 28px;
-    color: #14BDAC;
 }
 
 .score .points {
     font-size: 24px;
-    color: #14BDAC;
     text-align: center;
 }
 
@@ -128,10 +138,49 @@ body .game .shell {
     inset: 25px;
 }
 
+
+/* Winner or Loser */
 .decision {
     color: #0DA192;
     color: rgba(255, 255, 255, .666);
     font-size: 64px;
     margin-top: 25px;
     margin-bottom: -25px;
+}
+
+
+/* Reset button to reset the game */
+.reset, .clear {
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    border: 5px solid #0DA192;
+    border-radius: 10px;
+    background: #14BDAC;
+    color: #0DA192;
+    font-size: 24px;
+    font-weight: 600;
+    transition: .3s;
+    cursor: default;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.reset {
+    inset: 100px;
+}
+
+.reset:hover {
+    color:rgba(0, 0, 0, .5);
+}
+
+
+/* Clear button to clear the tic tac toe grid */
+.clear {
+    top: 100px;
+    right: 100px;
+}
+
+.clear:hover {
+    color: rgba(0, 0, 0, .5);
 }
