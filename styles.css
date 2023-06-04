@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Styling body */
+body {
+    margin: 0;
+    background: #14BDAC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}
+
+/* Heading for the game */
+body h1 {
+    color: #0DA192;
+}
+
+
+/* Game box */
+body .game {
+    width: 400px;
+    height: 400px;
+    transition: .4s;
+    border: 5px solid #0DA192;
+    font-size: 24px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Play button */
+body .play {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    cursor: default;
+    border-radius: 10px;
+    color: #0DA192;
+    background: none;
+}
+
+body .play:hover {
+    transform: scale(1.1);
+}
+
+.play h1 {
+    font-size: 24px;
+}
+
+/* Divide Game box into cells using stripes */
+.body .game .box {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 5px;
+}
+
+
+/* Making text unselectable in buttons and play button */
+button, .game {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
