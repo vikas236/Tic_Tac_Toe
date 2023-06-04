@@ -3,15 +3,33 @@
     font-family: sans-serif;
 }
 
+
+/* Making text unselectable in elements */
+button,
+.game,
+.score {
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+}
+
 /* Styling body */
 body {
     margin: 0;
     background: #14BDAC;
+}
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
     justify-content: center;
+    transform: translate(-1%, -1%);
+    transition: all .3s ease;
 }
 
 /* Heading for the game */
@@ -22,49 +40,98 @@ body h1 {
 
 /* Game box */
 body .game {
-    width: 400px;
-    height: 400px;
-    transition: .4s;
+    width: 125px;
+    height: 40px;
     border: 5px solid #0DA192;
-    font-size: 24px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all .3s ease;
+}
+
+.game.play {
+    width: 350px;
+    height: 350px;
+    border: none;
+    transition: .3s;
+}
+
+/* Styling the tic tac toe grid */
+.game .box {
+    display: none;
+    background: #0DA192;
     border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template: 1fr 1fr 1fr/1fr 1fr 1fr;
+    gap: 5px;
+    overflow: hidden;
+    transition: all .4s ease;
+    margin-top: 10px;
 }
 
 /* Play button */
-body .play {
-    width: 200px;
-    height: 50px;
-    text-align: center;
-    cursor: default;
-    border-radius: 10px;
-    color: #0DA192;
-    background: none;
-}
-
-body .play:hover {
-    transform: scale(1.1);
-}
-
-.play h1 {
+.game .start {
     font-size: 24px;
+    color: #0DA192;
+    font-weight: 600;
+    margin: 0 25px;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.game .start:hover {
+    color: rgba(0, 0, 0, .5);
 }
 
 /* Divide Game box into cells using stripes */
-.body .game .box {
-    width: 100px;
-    height: 100px;
-    background: white;
-    border-radius: 5px;
+body .game .shell {
+    width: 115px;
+    height: 115px;
+    background: #14BDAC;
+    color: wheat;
+    position: relative;
+    font-size: 64px;
+    padding: 20px 35px;
 }
 
+/* Score Board */
+.score {
+    width: 250px;
+    height: 100px;
+    background: #0DA192;
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-around;
+    border-radius: 25px;
+}
 
-/* Making text unselectable in buttons and play button */
-button, .game {
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+.score .col {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.score .player {
+    font-size: 28px;
+    color: #14BDAC;
+}
+
+.score .points {
+    font-size: 24px;
+    color: #14BDAC;
+    text-align: center;
+}
+
+.game .box h2 {
+    font-size: 18px;
+    position: absolute;
+    inset: 25px;
+}
+
+.decision {
+    color: #0DA192;
+    color: rgba(255, 255, 255, .666);
+    font-size: 64px;
+    margin-top: 25px;
+    margin-bottom: -25px;
 }
