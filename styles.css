@@ -39,17 +39,21 @@ body {
 /* Heading for the game */
 body h1 {
     color: #0DA192;
+    font-size: 52px;
+    position: absolute;
+    top: 65px;
 }
 
 
 /* Game box */
 body .game {
-    width: 125px;
-    height: 40px;
+    width: 250px;
+    height: 75px;
     border: 5px solid #0DA192;
     border-radius: 10px;
     overflow: hidden;
     transition: all .3s ease;
+    margin-bottom: 200px;
 }
 
 .game.play {
@@ -70,17 +74,20 @@ body .game {
     gap: 5px;
     overflow: hidden;
     transition: all .4s ease;
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 
 /* Play button */
 .game .start {
-    font-size: 24px;
+    width: 250px;
+    height: 75px;
+    font-size: 32px;
     color: #0DA192;
     font-weight: 600;
-    margin: 0 25px;
     transition: .4s;
+    text-align: center;
+    padding: 15px 0;
 }
 
 .game .start:hover {
@@ -102,33 +109,37 @@ body .game .shell {
 
 /* Score Board */
 .score {
-    width: 250px;
-    height: 100px;
+    width: 450px;
+    height: 150px;
     background: #0DA192;
     display: flex;
     margin-top: 25px;
     justify-content: space-around;
     border-radius: 25px;
+    position: absolute;
+    bottom: 200px;
 }
 
 .score .col {
-    height: 100px;
+    height: 110px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     color: #14BDAC;
-}
-
-.score .p1 {
-    color: rgba(255, 255, 255, .9);
-}
-
-.score .player {
+    margin-top: 15px;
     font-size: 28px;
 }
 
+.score .p1 {
+    color: rgba(255, 255, 255, 1);
+}
+
+.score .p2 {
+    color: #14BDAC;
+}
+
 .score .points {
-    font-size: 24px;
+    font-size: 32px;
     text-align: center;
 }
 
@@ -141,11 +152,10 @@ body .game .shell {
 
 /* Winner or Loser */
 .decision {
-    color: #0DA192;
-    color: rgba(255, 255, 255, .666);
-    font-size: 64px;
-    margin-top: 25px;
-    margin-bottom: -25px;
+    color: #545454;
+    font-size: 42px;
+    position: absolute;
+    bottom: 100px;
 }
 
 
@@ -167,7 +177,7 @@ body .game .shell {
 }
 
 .reset {
-    inset: 100px;
+    inset: 100px 500px;
 }
 
 .reset:hover {
@@ -178,9 +188,17 @@ body .game .shell {
 /* Clear button to clear the tic tac toe grid */
 .clear {
     top: 100px;
-    right: 100px;
+    right: 500px;
 }
 
 .clear:hover {
     color: rgba(0, 0, 0, .5);
+}
+
+/* Wall to block player input after game over */
+.wall {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    display: none;
 }
