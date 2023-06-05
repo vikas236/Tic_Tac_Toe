@@ -3,13 +3,14 @@ const game = document.querySelector(".game");
 const start = document.querySelector(".start");
 const box = document.querySelector(".box");
 const reset = document.querySelector(".reset");
-const clear = document.querySelector(".clear");
 const p1 = document.querySelector(".p1");
 const p2 = document.querySelector(".p2");
 const score = document.querySelectorAll(".points")
 const decision = document.querySelector(".decision");
 const wall = document.querySelector(".wall");
+let p = "";
 let turn = 0;
+let empty = 0;
 
 
 // Function declaration
@@ -18,6 +19,7 @@ const play = (() => {
     const keys = () => {
         window.addEventListener("keydown", function (e) {
             if (e.key == "Escape") {
+                play.reset();
                 play.close();
             }
             if (e.key == "Enter") {
@@ -28,6 +30,7 @@ const play = (() => {
 
     // Show tic tac toe grid
     const show = () => {
+        reset();
         game.classList.add("play");
         start.style.display = "none";
         fillStripes();
@@ -58,7 +61,8 @@ const play = (() => {
                         this.innerHTML = "O";
                         turn = 0;
                     };
-                    winner(checkWinner(shell))
+                    empty = noSpace(shell);
+                    winner(checkWinner(shell));
                     if (checkWinner(shell) == false) { playerTurn(turn); };
                 };
             });
@@ -77,15 +81,39 @@ const play = (() => {
         };
     };
 
+    const points = {
+        p1: 0,
+        p2: 0,
+    }
+
     // Winner announcing, Starting a new game
     const winner = (str) => {
         let z = "";
         if (str == "X") { z = 1; }
         else if (str == "O") { z = 2; };
-        if (str != false) {
-            decision.innerHTML = `Player ${z} is the Winner!`;
+        if (str != false && empty == 0) {
+            if (points.p1 < 3 && points.p2 < 3) {
+                decision.innerHTML = `Player ${z} has won a Point!`;
+                points[Object.keys(points)[z - 1]] = ++Object.values(points)[z - 1];
+                score[z - 1].innerHTML = Object.values(points)[z - 1];
+                wall.style.display = "block";
+            };
+            if (points.p1 >= 3) {
+                p = "Player 1 is the Winner!";
+                decision.innerHTML = p;
+                wall.style.display = "block";
+            }
+            else if (points.p2 >= 3) {
+                p = "Player 2 is the Winner!";
+                decision.innerHTML = p;
+                wall.style.display = "block";
+            };
+        }
+        else if (empty == 1) {
+            p = "Draw!"
+            decision.innerHTML = p;
             wall.style.display = "block";
-            score[z - 1].innerHTML = 1;
+            empty = 0;
         };
     };
 
@@ -114,34 +142,72 @@ const play = (() => {
         else { return false; };
     };
 
-    // Clear the grid
-    const close = () => {
+    // Wall to stop player interaction after gaining a point or game over
+    const dim = () => {
+        wall.addEventListener("click", function () {
+            if (points.p1 >= 3 || points.p1 >= 3) {
+                reset();
+                close();
+                decision.innerHTML = p;
+                wall.style.display = "none";
+                points.p1 = 0;
+                points.p2 = 0;
+            }
+            else if (points.p1 < 3 && points.p2 < 3) {
+                clear();
+                console.log(points.p1, points.p2);            
+            }
+            else if (empty == 1) {
+                decision.innerHTML = "Draw";
+                clear();
+                empty = noSpace([]);
+            };
+        });
+    };
+
+    // Check if the grid is full
+    const noSpace = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].innerHTML == "") {
+                return 0;
+            }
+        };
+        return 1;
+    };
+
+    // Reset the game
+    const reset = () => {
         clear();
+        score[0].innerHTML = 0;
+        score[0].innerHTML = 0;
+        decision.innerHTML = "";
+    };
+
+    // Close the grid
+    const close = () => {
         game.classList.remove("play");
         start.style.display = "block";
     };
 
-    // Reset the game
+    // Clear the grid
     const clear = () => {
         if (game.childNodes[3]) {
             let box = game.childNodes[3];
             for (let i = 0; i < (box.childNodes).length; i++) { box.childNodes[i].innerHTML = ""; };
-            decision.innerHTML = "";
             wall.style.display = "none";
         };
         turn = 0;
         playerTurn(turn);
     };
 
-    return { show, clear, keys, close };
+    return { keys, show, dim, clear, reset, close };
 })();
 
 
 
 // Function calling
 start.addEventListener("click", play.show);
-reset.addEventListener("click", play.close);
-clear.addEventListener("click", play.clear);
-wall.addEventListener("click", play.clear);
+reset.addEventListener("click", function () { play.reset(); play.close(); });
 play.keys();
 play.show();
+play.dim();
