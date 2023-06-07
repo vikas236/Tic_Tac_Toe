@@ -83,8 +83,9 @@ const play = (() => {
         if (bestMove.move != -1) {
             shell[bestMove.move].style.color = "#F2EBD3";
             shell[bestMove.move].innerHTML = "O";
-            if (checkWinner(shell) == false && turn == 0) { playerTurn(0); };
-            turn = 0;
+            if (checkWinner(shell) == false && turn == 1) { turn = 0; };
+            playerTurn(turn);
+            console.log(turn);
             empty = noSpace(shell);
             winner(checkWinner(shell));
         };
@@ -100,8 +101,9 @@ const play = (() => {
             if (shell[n].innerHTML == "" && !(checkWinner(shell))) {
                 shell[n].style.color = "#F2EBD3";
                 shell[n].innerHTML = "O";
-                if (checkWinner(shell) == false && turn == 0) { playerTurn(0); };
-                turn = 0;
+                if (checkWinner(shell) == false && turn == 1) { turn = 0; };
+                console.log(turn);
+                playerTurn(turn);
                 empty = noSpace(shell);
                 winner(checkWinner(shell));
                 break;
