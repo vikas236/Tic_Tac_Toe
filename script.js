@@ -7,6 +7,7 @@ const p1 = document.querySelector(".p1");
 const p2 = document.querySelector(".p2");
 const scoreBoard = document.querySelectorAll(".points")
 const decision = document.querySelector(".decision");
+const level = document.querySelector("#difficulty");
 const wait = document.querySelector(".wait");
 const wall = document.querySelector(".wall");
 let p = "";
@@ -27,6 +28,13 @@ const play = (() => {
                 play.show();
             }
         });
+    };
+
+    // Difficulty selector
+    const difficulty = () => {
+        reset();
+        close();
+        console.log(level.value);
     };
 
     // Show tic tac toe grid
@@ -59,7 +67,8 @@ const play = (() => {
                     turn = 1;
                     playerTurn(1);
                     wait.style.display = "block";
-                    if (empty) { setTimeout(() => { botMove(shell); }, 300); };
+                    if (empty && level.value == "normal") { setTimeout(() => { botMove(shell); }, 300); }
+                    else if (empty && level.value == "easy") { setTimeout(() => { easyBot(shell); }, 300); }
                 };
             });
         };
@@ -78,7 +87,26 @@ const play = (() => {
             turn = 0;
             empty = noSpace(shell);
             winner(checkWinner(shell));
-        }
+        };
+    };
+
+    // Easy bot move
+    const easyBot = (shell) => {
+        setTimeout(() => { wait.style.display = "none"; }, 500);
+        empty = noSpace(shell);
+        winner(checkWinner(shell));
+        for (let i = 0; i < 9; i++) {
+            let n = (Math.floor(Math.random() * 8));
+            if (shell[n].innerHTML == "" && !(checkWinner(shell))) {
+                shell[n].style.color = "#F2EBD3";
+                shell[n].innerHTML = "O";
+                if (checkWinner(shell) == false && turn == 0) { playerTurn(0); };
+                turn = 0;
+                empty = noSpace(shell);
+                winner(checkWinner(shell));
+                break;
+            };
+        };
     };
 
     // Change player turn
@@ -261,7 +289,7 @@ const play = (() => {
         decision.innerHTML = "";
     };
 
-    return { keys, show, reset, close, dim };
+    return { keys, show, reset, close, dim, difficulty };
 })();
 
 
@@ -269,5 +297,6 @@ const play = (() => {
 // Function calling
 start.addEventListener("click", play.show);
 reset.addEventListener("click", function () { play.reset(); play.close(); });
+level.addEventListener("click", play.difficulty)
 play.keys();
 play.dim();

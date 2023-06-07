@@ -108,7 +108,7 @@ body .game .shell {
 
 /* Score Board */
 .score {
-    width: 450px;
+    width: 350px;
     height: 150px;
     background: #0DA192;
     display: flex;
@@ -127,6 +127,10 @@ body .game .shell {
     color: #14BDAC;
     margin-top: 15px;
     font-size: 28px;
+}
+
+.score .col.p2 {
+    margin-right: 10px;
 }
 
 .score .p1 {
@@ -149,7 +153,7 @@ body .game .shell {
 }
 
 
-/* Winner or Loser */
+/* Win declare on screen */
 .decision {
     color: #545454;
     font-size: 42px;
