@@ -195,6 +195,15 @@ body .game .shell {
     color: rgba(0, 0, 0, .5);
 }
 
+/* Block player input when it's bots turn */
+.wait {
+    width: 350px;
+    height: 425px;
+    position: absolute;
+    top: 200px;
+    display: none;
+}
+
 /* Wall to block player input after game over */
 .wall {
     width: 100vw;

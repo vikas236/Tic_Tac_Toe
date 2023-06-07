@@ -7,6 +7,7 @@ const p1 = document.querySelector(".p1");
 const p2 = document.querySelector(".p2");
 const score = document.querySelectorAll(".points")
 const decision = document.querySelector(".decision");
+const wait = document.querySelector(".wait");
 const wall = document.querySelector(".wall");
 let p = "";
 let turn = 0;
@@ -50,22 +51,35 @@ const play = (() => {
     const fillshells = (shell) => {
         for (let i = 0; i < shell.length; i++) {
             shell[i].addEventListener("click", function () {
+                empty = noSpace(shell);
                 if (this.innerHTML == "" && !winner(checkWinner(shell))) {
-                    if (turn == 0) {
-                        this.style.color = "#545454";
-                        this.innerHTML = "X";
-                        turn = 1;
-                    }
-                    else if (turn == 1) {
-                        this.style.color = "#F2EBD3";
-                        this.innerHTML = "O";
-                        turn = 0;
-                    };
-                    empty = noSpace(shell);
                     winner(checkWinner(shell));
-                    if (checkWinner(shell) == false) { playerTurn(turn); };
+                    this.style.color = "#545454";
+                    this.innerHTML = "X";
+                    turn = 1;
+                    playerTurn(1);
+                    wait.style.display = "block";
+                    setTimeout(() => { botMove(shell); }, 1000);
                 };
             });
+        };
+    };
+
+    // Bots turn
+    const botMove = (shell) => {
+        wait.style.display = "none";
+        empty = noSpace(shell);
+        winner(checkWinner(shell));
+        for (let i = 0; i < shell.length; i++) {
+            let n = Math.floor(Math.random() * 8);
+            if (p) { break; };
+            if (shell[n].innerHTML == "") {
+                shell[n].style.color = "#F2EBD3";
+                shell[n].innerHTML = "O";
+                if (checkWinner(shell) == false && turn == 0) { playerTurn(0, shell); };
+                turn = 0;
+                return shell;
+            };
         };
     };
 
@@ -77,7 +91,7 @@ const play = (() => {
         }
         else if (turn == 1) {
             p1.style.color = "#14BDAC";
-            p2.style.color = "rgba(255, 255, 255, .9)"
+            p2.style.color = "rgba(255, 255, 255, .9)";
         };
     };
 
@@ -88,12 +102,13 @@ const play = (() => {
 
     // Winner announcing, Starting a new game
     const winner = (str) => {
-        let z = "";
+        let z = 0;
         if (str == "X") { z = 1; }
         else if (str == "O") { z = 2; };
-        if (str != false && empty == 0) {
+        if (str != false && (empty == 0)) {
             if (points.p1 < 3 && points.p2 < 3) {
-                decision.innerHTML = `Player ${z} has won a Point!`;
+                p = `Player ${z} has won a Point!`;
+                decision.innerHTML = p;
                 points[Object.keys(points)[z - 1]] = ++Object.values(points)[z - 1];
                 score[z - 1].innerHTML = Object.values(points)[z - 1];
                 wall.style.display = "block";
@@ -114,6 +129,9 @@ const play = (() => {
             decision.innerHTML = p;
             wall.style.display = "block";
             empty = 0;
+        }
+        else {
+            console.log("here");
         };
     };
 
@@ -148,14 +166,11 @@ const play = (() => {
             if (points.p1 >= 3 || points.p1 >= 3) {
                 reset();
                 close();
-                decision.innerHTML = p;
+                decision.innerHTML = "";
                 wall.style.display = "none";
-                points.p1 = 0;
-                points.p2 = 0;
             }
             else if (points.p1 < 3 && points.p2 < 3) {
                 clear();
-                console.log(points.p1, points.p2);            
             }
             else if (empty == 1) {
                 decision.innerHTML = "Draw";
@@ -180,7 +195,9 @@ const play = (() => {
         clear();
         score[0].innerHTML = 0;
         score[0].innerHTML = 0;
-        decision.innerHTML = "";
+        points.p1 = 0;
+        points.p2 = 0;
+        empty = 0;
     };
 
     // Close the grid
@@ -197,10 +214,13 @@ const play = (() => {
             wall.style.display = "none";
         };
         turn = 0;
-        playerTurn(turn);
+        playerTurn(0);
+        p = "";
+        empty = 0;
+        decision.innerHTML = "";
     };
 
-    return { keys, show, dim, clear, reset, close };
+    return { keys, show, dim, clear, reset, close, botMove };
 })();
 
 
