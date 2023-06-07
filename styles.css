@@ -63,6 +63,22 @@ body .game {
     transition: .3s;
 }
 
+/* Play button */
+.game .start {
+    width: 240px;
+    height: 75px;
+    font-size: 32px;
+    color: #0DA192;
+    font-weight: 600;
+    transition: .4s;
+    text-align: center;
+    padding: 15px 0;
+    display: inline-block;
+}
+
+.game .start:hover {
+    color: rgba(0, 0, 0, .5);
+}
 
 /* Styling the tic tac toe grid */
 .game .box {
@@ -75,23 +91,6 @@ body .game {
     overflow: hidden;
     transition: all .4s ease;
     margin-top: 25px;
-}
-
-
-/* Play button */
-.game .start {
-    width: 240px;
-    height: 75px;
-    font-size: 32px;
-    color: #0DA192;
-    font-weight: 600;
-    transition: .4s;
-    text-align: center;
-    padding: 15px 0;
-}
-
-.game .start:hover {
-    color: rgba(0, 0, 0, .5);
 }
 
 
@@ -160,9 +159,9 @@ body .game .shell {
 
 
 /* Reset button to reset the game */
-.reset, .clear {
-    width: 150px;
-    height: 50px;
+.reset {
+    width: 200px;
+    height: 60px;
     position: absolute;
     border: 5px solid #0DA192;
     border-radius: 10px;
@@ -173,26 +172,42 @@ body .game .shell {
     transition: .3s;
     cursor: default;
     text-align: center;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 .reset {
-    inset: 100px 500px;
+    inset: 100px 1250px;
 }
 
 .reset:hover {
     color:rgba(0, 0, 0, .5);
 }
 
-
-/* Clear button to clear the tic tac toe grid */
-.clear {
-    top: 100px;
-    right: 500px;
+/* Difficulty selector for the user */
+#difficulty {
+    width: 200px;
+    height: 60px;
+    position: absolute;
+    inset: 100px 450px;
+    transition: .6s;
+    background: #0DA192;
+    border: 0;
+    text-align: center;
+    color: #14BDAC;
+    font-size: 24px;
+    border-radius: 10px;
 }
 
-.clear:hover {
-    color: rgba(0, 0, 0, .5);
+#difficulty option {
+    font-size: 20px;
+    text-align: center;
+    background: #0DA192;
+}
+
+#difficulty option:hover {
+    color: #14BDAC;
+    background: #0DA192;
+    color: pink;
 }
 
 /* Block player input when it's bots turn */
