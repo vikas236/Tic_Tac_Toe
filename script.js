@@ -105,7 +105,6 @@ const play = (() => {
                 console.log(turn);
                 playerTurn(turn);
                 empty = noSpace(shell);
-                winner(checkWinner(shell));
                 break;
             };
         };
